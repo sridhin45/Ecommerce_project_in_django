@@ -1,0 +1,29 @@
+<table class="table table-bordered">
+    {% if da %}
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>Id</th><th>Name</th><th>Phone Number</th><th>Email</th><th>Order Status</th><th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for o in da %}
+      <tr>
+        <td>{{o.id}}</td>
+        <td>{{o.name}}</td>
+        <td>{{o.phone}}</td>
+        <td>{{o.email}}</td>
+        <td>{{o.order_status}}</td>
+        <td>{{o.order_total}}</td>
+        <td><a href="{% url 'more_details' o.id %}" class="btn btn-outine-success">Details</a></td>
+      </tr>
+{% endfor %}
+    </tbody>
+    {% else %}
+    <tr>
+        <td colspan="6"> no details to view </td> 
+    </tr>
+    {% endif %}
+</table>
+
+
+

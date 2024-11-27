@@ -1,0 +1,56 @@
+{% extends 'admin/adminhome.html' %}
+
+{% block content %}
+
+<div class="container" style="min-height: 435px;">
+    <div class="row mt-5">
+        <div class="col-6">
+            <h3 class="text-info">Product List</h3>
+        </div>
+        <div class="col-6 text-end">
+            <a href="{% url 'add_product' %}" class="btn btn-dark">+ Create New Product</a>
+        </div>
+    </div>
+    <div class="border p-4">
+        <div class="text-end">
+            <label for="search">Search</label>
+            <input type="text" name="search" id="search">
+        </div>
+        <div class="mt-4">
+            <table class="table table-active table-bordered">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>title</th>
+                        <th>isbn</th>
+                        <th>price</th>
+                        <th>author</th>
+                        <th>category</th>
+                        <th colspan="2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if pro %}
+                    {% for p in pro %}
+                    <tr>
+                        <th>{{p.title}}</th>
+                        <th>{{p.isbn}}</th>
+                        <th>{{p.price}}</th>
+                        <th>{{p.author}}</th>
+                        <th>{{p.categoryid.categoryname}}</th>
+                        <td><a href="{% url 'edit_product' p.id %}"><i class="fa fa-edit" style="font-size: 35px;"></i></a></td>
+                        <td><a href="{% url 'delete_product' p.id %}" onclick="return confirm('Are you sure to delete this?')"><i class="fa fa-trash" style="font-size: 34px;color: red;"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">No data available in table</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+                

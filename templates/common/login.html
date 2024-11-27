@@ -1,0 +1,47 @@
+
+{% extends 'common/commonbase.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+
+
+{% block content %}
+
+<div class="container" style="padding-left: 100px;padding-right: 100px;min-height: 630px;">
+
+    <div class="border"
+        style="margin-left:200px;margin-right: 200px;margin-top: 20px;padding: 38px;margin-bottom: 37px;">
+
+
+
+
+<h3 class="text-center text-primary">Sign In</h3>
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-12">
+            <a href="" class="btn btn-primary form-control"><i class="fa fa-facebook-official"
+                    style="font-size:24px"></i>FaceBook</a>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12">
+            <a href="" class="btn btn-danger form-control"><i class="fa fa-google" style="font-size:24px"></i>Google</a>
+        </div>
+    </div>
+    <div class="pt-4">
+
+        <input type="text" required name="username" placeholder="username" class="form-control">
+    </div>
+    <div class="pt-2">
+        <input type="password" required name="password" placeholder="Password" class="form-control">
+    </div>
+    <div class="pt-2">
+        <input type="submit" value="LOGIN" class="btn btn-success form-control">
+    </div>
+
+</form>
+
+{% endblock %}
+</div>
+</div>

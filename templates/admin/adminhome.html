@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/bootstrap.bundle.js"></script>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+       
+        <a href="" class="navbar-brand">BulkyBook</a>
+        <ul class="navbar-nav me-auto order-xxl-0">
+            <li class="nav-item active"><a href="" class="nav-link">Home</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"  href="#">Content Management</a>
+            <ul class="dropdown-menu">
+               
+                <li><a class="dropdown-item" href="{% url 'add_category' %}">Category</a></li>         
+                <li><a class="dropdown-item" href="{% url 'covertype' %}">CoverType</a></li>
+                <li><a class="dropdown-item" href="{% url 'add_product' %}">Product</a></li>
+                <li><a class="dropdown-item" href="">Company</a></li>
+            </ul>
+        </li>
+        <li class="nav-item"><a href="{% url 'manageorder' %}" class="nav-link">Manage order</a></li>
+        </ul>
+        <ul class="navbar-nav ms-auto order-5">  
+            <li class="nav-item"><a href="" class="nav-link">
+               
+                {% if  request.session.admin %}
+                Hi {{request.session.admin}} 
+                {% endif %}<i class="fa fa-user" style="font-size:24px"></i>
+            </a></li>
+                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">LogOut</a></li>
+            </ul>
+    
+ 
+
+      </nav>
+
+       
+
+      <div style="min-height: 577px;">
+    {% block content %}
+
+
+     
+             <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'img/book1.avif'%}" alt="download.jpg" class="d-block" style="width:100%">
+      <div class="carousel-caption">
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'img/book1.avif'%}" alt="Chicago" class="d-block" style="width:100% ">
+      <div class="carousel-caption">
+      </div> 
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'img/book1.avif'%}" alt="New York" class="d-block" style="width:100% " >
+      <div class="carousel-caption">
+      </div>  
+    </div>
+  </div>
+  
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<div class="container-fluid mt-3">
+</div>
+
+
+{% endblock %}
+
+      </div>
+
+
+  
+     <footer class="bg-info text-white text-center py-3">
+        <p class="mb-0">© 2024 BulkyBook. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

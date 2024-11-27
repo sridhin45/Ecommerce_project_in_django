@@ -1,0 +1,85 @@
+{% extends 'customer/customerbase.html' %}
+
+{% block content %}
+
+<div class="container" style="min-height: 480px;" >
+    <form action="{% url 'add_cart' %}" method="post">
+        {% csrf_token %}
+
+    {% for p in pr %}
+    
+   
+        <input type="hidden" name="id" value="{{p.id}}">
+        <div class="card mt-2">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h2 style="color:blue;">{{p.title}}</h2>
+                        <span>by <label style="color: aqua; font-size:x-large; font-weight: bolder;">{{ p.author}}</label></span>
+                    </div>
+                    <div class="col-3 text-end">
+                        <span class="badge" style="background-color: rgb(40, 216, 40);">{{p.categoryid.categoryname}}</span>
+                    </div>
+                    <div class="col-1">
+                        <span class="badge" style="background-color:rgb(113, 40, 216) ;">{{p.covertypeid.covertype}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <span class="text-secondary">ISBN :{{p.isbn}}</span>
+                        <p>List Price :<s>${{p.listprice}}</s></p>
+                        <div class="row bg-secondary">
+                            <div class="col-3 text-white">
+                                <h6>Quantity</h6>
+                            </div>
+                            <div class="col-3 text-white"><label>1-49</label></div>
+                            <div class="col-3 text-white"><label>50-99</label></div>
+                            <div class="col-3 text-white"><label>100+</label></div>
+                        </div>
+                        <div class="row bg-secondary mt-1">
+                            <div class="col-3">
+                                <h6 style="color: rgb(177, 40, 40);">price</h6>
+                            </div>
+                            <div class="col-3"><label style="color: rgb(177, 40, 40);">${{p.price}}</label></div>
+                            <div class="col-3"><label style="color: rgb(177, 40, 40);">${{p.price50}}</label></div>
+                            <div class="col-3"><label style="color: rgb(177, 40, 40);">${{p.price100}}</label></div>
+                        </div>
+                        <span>description: <label style="color: red;">{{p.description}}</label></span>
+                    </div>
+                    <div class="col-3 text-end">
+                        <img src="{{p.image.url}}" width="200px" height="200px" class="img-thumbnail">
+                    </div>
+                        <div class="row mt-3">
+                            <div class="col-2">
+                              <h4 class="text-info">count</h4>
+                            </div>
+                            <div class="col-6"><input type="text" required name="count" class="form-control" id=""></div>
+                        </div>
+                    </div>
+            </div>
+                <div class="card-footer mt-1">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" value="Add To Cart" class="btn btn-success form-control">
+                        </div>
+                        <div class="col-6">
+                            <a href="{% url 'customerhome' %}" class="btn btn-dark form-control">Back To List</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    {% endfor %}
+</form>
+
+</div>
+{% if messages %}
+{% for msg in messages %}
+
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

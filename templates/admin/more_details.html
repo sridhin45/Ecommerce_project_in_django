@@ -1,0 +1,220 @@
+{% extends 'admin/adminhome.html' %}
+
+{% block content %}
+
+<script>
+    function getdate(){
+        const date=document.getElementById("shippingdate").value;
+        const id=document.getElementById("orderid").value;
+        if(!date)
+    {
+        alert("please select shippingdate");
+        return;
+    }
+    const url=`/processing/?date=${date}&id=${id}`;
+           
+    window.location.href = url;
+    }
+</script>
+
+
+
+<div class="container" style="min-height: 484px;">
+    <div class="card mt-3">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-6">
+                    <h3>Order History</h3>
+                </div>
+                <div class="col-6 text-end">
+                    <a href="{% url 'manageorder' %}" class="btn btn-dark">Back to Orders</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+      <form action="{% url 'ship_order' %}" method="post">
+        {% csrf_token %}
+            <div class="row">
+                <div class="col-6">
+                    <h5 class="text-success">PickUp Deatails</h5>
+                    {% for o in or %}
+
+                    <input type="hidden" name="id" value="{{o.id}}" id="orderid">
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.name}}" name="name" id="name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="address">Address</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" name="address" value="{{o.address}}" id="address" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="phn">Phone</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.phone}}" name="phn" id="phn" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="city">City</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.city}}" name="city" id="city" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="state">State</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.state}}" name="state" id="state" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="zipcode">ZipCode</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.postel_code}}" name="zipcode" id="zipcode" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.email}}" name="email" id="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="orderdate">Order Date</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.order_date}}" name="orderdate" id="orderdate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="carrier">Carrier</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text"  name="carrier" id="carrier" value="{{o.carrier}}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="tracking">Tracking</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.tracking}}"  name="tracking" id="tracking" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="shippingdate">Shipping Date</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="date" value="{{o.shipping_date}}"  name="shippingdate" id="shippingdate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label>Transaction id</label>
+                        </div>
+                        <div class="col-7">
+                            <textarea name="trasaction" readonly id="" class="form-control">{{o.transactionid}}</textarea>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label>Payment  Date</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.paymentduedate}}" readonly name="paymentdate"  class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label>Payment status</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" value="{{o.paymentstatus}}" name="paymentstatus"  class="form-control">
+                        </div>
+                    </div>
+                </div>                
+                <div class="col-6 text-center">
+                    <h5 class="text-success">Order summary</h5>
+                    {% for i in it %}
+
+                    <div class="border">
+                        <div class="row">
+                            <div class="col-6">
+                                <label style="font-size: larger;font-weight: bolder;">{{i.productid.title}}</label>
+                            </div>
+                            <div class="col-6">
+                                $<span class="text-end" id="total"></span>
+                            </div>
+                        </div>
+                       <div class="row">
+                        <div class="col-6">
+                      
+                            <input type="hidden" value="{{i.productid.price}}" id="price">
+                            <input type="hidden" value="{{i.count}}" id="count">
+                            <span>Price :{{i.productid.price}}</span><br>
+                            <span>Quantity :{{i.count}}</span>
+                        </div>
+                       </div>
+                       {% endfor %}
+                   
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <label style="font-size: larger;font-weight: bolder;">Total</label>
+                        </div>
+                        <div class="col-6">
+                            <span class="text-end">${{o.order_total}}</span>
+                        </div>
+                    </div>
+                </div>
+                {% if o.order_status == "pending" and o.paymentstatus == "Paid" %}
+                    <div style="margin-top: 50px;">
+                        <a onclick="return getdate()" class="btn btn-dark form-control">Start Processing</a>
+                    </div>
+                    <div style="margin-top: 25px;">
+                        <a href="{% url 'cancel_order' o.id %}" class="btn btn-danger form-control">Cancel Order</a>
+                    </div>
+                {% endif %}
+                {% if o.order_status == "processing"%}
+                <div style="margin-top: 50px;">
+                    <input type="submit" value="Ship Order" class="btn btn-dark form-control">
+                </div>
+                <div style="margin-top: 25px;">
+                    <a href="{% url 'cancel_order' o.id %}" class="btn btn-danger form-control">Cancel Order</a>
+                </div>
+            {% endif %}
+                {% if o.order_status == "pending" and o.paymentstatus == "pending" %}
+                    <div style="margin-top: 50px;">
+                        <a href="{% url 'cancel_order' o.id %}" class="btn btn-danger form-control">Cancel Order</a>
+                    </div>
+                {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+</form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

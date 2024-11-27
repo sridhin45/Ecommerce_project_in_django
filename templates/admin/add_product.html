@@ -1,0 +1,241 @@
+{% extends 'admin/adminhome.html' %}
+
+{% block content %}
+
+{% if pr %}
+
+{% for p in pr %}
+
+<form action="{% url 'edit_product' p.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="border mt-2 p-3">
+    <h3 class="text-info">update Product</h3>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="title">Title</label>
+        </div>
+        <div class="col-6">
+            <input type="text" value="{{p.title}}" class="form-control" name="title" id="title">
+        </div>
+        <div class="col-3">
+            <img src="{{p.image.url}}" height="100px" width="100px">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="isbn">ISBN</label>
+        </div>
+        <div class="col-6">
+            <input type="number"  value="{{p.isbn}}" class="form-control" name="isbn" id="isbn">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="author">author</label>
+        </div>
+        <div class="col-6">
+            <input type="text" value="{{p.author}}" class="form-control" name="author" id="author">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="description">Description</label>
+        </div>
+        <div class="col-6">
+            <textarea name="description"  id="description" class="form-control" cols="20" rows="3">{{p.description}}</textarea>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="list">list price</label>
+        </div>
+        <div class="col-6">
+            <input type="number" value="{{p.listprice}}" class="form-control" value="0" name="listprice" id="listprice">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="price">price</label>
+        </div>
+        <div class="col-6">
+            <input type="number" value="{{p.price}}" class="form-control" name="price" id="price">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="price50">price 50</label>
+        </div>
+        <div class="col-6">
+            <input type="number" value="{{p.price50}}" class="form-control" name="price50" id="price50">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="price100">Price 100</label>
+        </div>
+        <div class="col-6">
+            <input type="number" value="{{p.price100}}" class="form-control" name="price100" id="price100">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="category">Category</label>
+        </div>
+        <div class="col-6">
+            <select name="category" class="form-control" id="category">
+                <option value="{{p.categoryid.id}}">{{p.categoryid.categoryname}}</option>
+                {% for c in ca %}
+                <option value="{{c.id}}">{{c.categoryname}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="cover">cover type</label>
+        </div>
+        <div class="col-6">
+            <select name="cover"class="form-control" id="covertype">
+                <option value="{{p.covertypeid.id}}">{{p.covertypeid.covertype}}</option>
+                {% for d in co %}
+                <option value="{{d.id}}">{{d.covertype}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="image">Image</label>
+        </div>
+        <div class="col-6">
+            <input type="file" class="form-control" name="image"  id="image">
+        </div>
+    </div>
+<div class="row mt-2">
+    <div class="offset-3 col-3">
+        <input type="submit" value="update" class="btn btn-dark form-control">
+    </div>
+    <div class="col-3">
+        <a href="{% url 'product' %}" class="btn btn-success form-control">Back to list</a>
+    </div>
+    
+</div>
+</div>
+</form>
+{% endfor %}
+{% else %}
+
+<form action="{% url 'add_product' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="border mt-2 p-3">
+    <h3 class="text-info">Create Product</h3>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="title">Title</label>
+        </div>
+        <div class="col-6">
+            <input type="text" class="form-control" name="title" id="title">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="isbn">ISBN</label>
+        </div>
+        <div class="col-6">
+            <input type="number" class="form-control" name="isbn" id="isbn">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="author">author</label>
+        </div>
+        <div class="col-6">
+            <input type="text" class="form-control" name="author" id="author">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="description">Description</label>
+        </div>
+        <div class="col-6">
+            <textarea name="description" id="description" class="form-control" cols="20" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="list">list price</label>
+        </div>
+        <div class="col-6">
+            <input type="number" class="form-control" value="" name="listprice" id="listprice">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="price">price</label>
+        </div>
+        <div class="col-6">
+            <input type="number" class="form-control" name="price" id="price">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="price50">price 50</label>
+        </div>
+        <div class="col-6">
+            <input type="number" class="form-control" name="price50" id="price50">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="price100">Price 100</label>
+        </div>
+        <div class="col-6">
+            <input type="number" class="form-control" name="price100" id="price100">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="category">Category</label>
+        </div>
+        <div class="col-6">
+            <select name="category" class="form-control" id="category">
+                <option value="">--select category--</option>
+                {% for c in ca %}
+                <option value="{{c.id}}">{{c.categoryname}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="cover">cover type</label>
+        </div>
+        <div class="col-6">
+            <select name="cover"class="form-control" id="covertype">
+                <option value="">--select covertype--</option>
+                {% for d in co %}
+                <option value="{{d.id}}">{{d.covertype}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3">
+            <label for="image">Image</label>
+        </div>
+        <div class="col-6">
+            <input type="file" class="form-control" name="image" id="image">
+        </div>
+    </div>
+<div class="row mt-2">
+    <div class="offset-3 col-3">
+        <input type="submit" value="Create" class="btn btn-dark form-control">
+    </div>
+    <div class="col-3">
+        <a href="{% url 'product' %}" class="btn btn-success form-control">Back to list</a>
+    </div>
+</div>
+</div>
+</form>
+{% endif %}
+{% endblock %}
+
+    

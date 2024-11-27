@@ -1,0 +1,103 @@
+{% extends 'customer/customerbase.html' %}
+
+{% block content %}
+
+<div class="container" style="min-height: 464px;">
+    <form  method="post" action="{% url 'create_checkout_session' %}">
+        {% csrf_token %}
+        <div class="card mt-4">
+            <div class="card-header bg-dark">
+                <h5 class="text-white"> Order Summary</h5>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="text-info">pick up details</h4>
+                        {% for u in us %}
+                        <div class="row mt-2">
+                            <div class="col-3">
+                                <label for="">Name</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="name" value="{{u.name}}" class="form-control">
+                            </div>
+                        </div>
+                        <div class=" row mt-2">
+                            <div class="col-3">
+                                <label for="">phone</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="phone" value="{{u.mobile}}">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-3">
+                                <label>Street Address</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="address" value="{{u.address}}" class="form-control" id="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-3">
+                                <label>City</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="city" value="{{u.city}}" class="form-control" id="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-3">
+                                <label>State</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="state" value="{{u.state}}" class="form-control" id="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-3">
+                                <label>Postal code</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="code" value="{{u.postal_code}}" class="form-control" id="">
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-info">Order Summary</h4>
+                        {% for c in ca %}
+                        <div class="border p-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>{{c.productId.title}}</h5>
+                                    <span>Quantity :{{c.count}}</span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <label for="">$ {{c.price}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="row mt-2">
+                            <div class="col-6">
+                          <label for="total" style="font-weight: bolder;">Total USD</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" id="total" class="form-control" name="grandtotal" readonly value="{{gr}}">
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="card-footer text-end">
+                <input type="submit" class="btn btn-success" value="Place Order">
+            </div>
+        </div>
+        </form>
+    </div>
+    
+    {% endblock %}
+               

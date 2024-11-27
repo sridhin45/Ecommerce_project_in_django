@@ -1,0 +1,47 @@
+{% extends 'customer/customerbase.html' %}
+
+{% block content %}
+
+<div class="container" style="min-height: 480px;">
+    <div class="card mt-4">
+        <div class="card-header bg-dark">
+            <div class="row">
+                <div class="col-1 text-end"><i class="fa fa-shoping-cart" style="font-size: 30px;color: aliceblue;"></i></div>
+                <div class="col-6"><h4 class="text-white">shoping cart</h4></div>
+                <div class="col-5 text-end"><a href="{% url 'customerhome' %}" class="btn btn-info">Continue Shopping</a></div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% for c in ca %}
+            <div class="row">
+                <div class="col-3">
+                    <img src="{{c.productid.image.url}}">
+                </div>
+                <div class="col-2">
+                    <h4>{{c.productid.title}}</h4>
+                    <p>{{c.productid.categoryid.categoryname}}</p>
+                </div>
+                <div class="col-3 text-end">
+                    <h5>{{c.price}}x{{c.count}}</h5>
+                </div>
+                <div class="col-2 text-end">
+                    <a href="{% url 'plus' c.id %}" class="btn btn-success">+</a>
+                    <a href="{% url 'minus' c.id %}" class="btn btn-primary">-</a>
+                    <a href="{% url 'delete_cart' c.id %}"><i class="fa fa-trash" style="font-size: 40px; color: red;"></i></a>
+                </div>
+                
+            </div>
+            {% endfor %}
+            <div class="row">
+                <div class="offset-10 col-2">
+                    <input type="hidden" name="grandtotle" value="{{gr}}">
+                <span class="badge bg-secondary">Totle(USD) ${{gr}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <a href="{% url 'summary' %}?gr={{gr}}" class="btn" style="background-color: #04884a;color: white;">Summary</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
